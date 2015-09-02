@@ -1,4 +1,11 @@
+#section {
+    margin: 12px;
+    min-height: calc(100% - 195px);
+}
 
+footer {
+    margin: 21px;
+}
 /* Footer styling */
 .cargo_footer {
 	width: 68%;
@@ -25,6 +32,13 @@ caption {
     font-size: 14px;
     float:left;
     font-weight: bold;
+}
 
 
+/* Grid */
+.recode-active {
+	background-color: palegoldenrod !important;
+}
+.recode-selected {
+	background-color: moccasin !important;
 }

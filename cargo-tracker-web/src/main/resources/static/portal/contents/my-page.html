@@ -1,0 +1,41 @@
+<div class="row">
+	<div class="small-2 large-2 columns">
+		<ul class="side-nav" role="navigation" title="Link List">
+		   <li role="menuitem"><a href="#">My Info</a></li>
+		   <li role="menuitem"><a href="#">Password</a></li>
+		 </ul>
+	</div>
+	<div class="small-10 large-10 columns">
+		 <form>
+			<div class="row">
+				<fieldset>
+					<legend>My Info.</legend>
+					<label>Email Address
+						<input name="emailAddress" type="email" placeholder="Inputs your email address..." readonly value="aoa.seolhyun@samsung.com"/>
+					</label>
+					<label>Password
+						<input name="password" type="password" placeholder="Inputs your password..." readonly value="1234"/>
+					</label>
+					<label>First Name
+						<input name="firstName" type="text" placeholder="Inputs your Firstname..." readonly value="Seolhyun"/>
+					</label>
+					<label>Last Name
+						<input name="lastName" type="text" placeholder="Inputs your Lastname..." readonly value="Kim"/>
+					</label>
+					<label>Role <select name="userRole" disabled>
+						<option value="admin">Admin</option>
+						<option value="sysAdmin">System Admin</option>
+						<option value="customer">Customer</option>
+						<option value="manager" selected >Manager</option>
+					</select></label>
+				</fieldset>
+			</div>
+			<div class="row">
+				<ul class="button-group radius right">
+					<li><div id="btnSave" role="button" class="button" tabindex="0">Save</div></li>
+					<li><div id="btnBack" role="button" class="button secondary">Cancel</div></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+</div>
