@@ -1,0 +1,63 @@
+.top-bar .title-area {
+	padding-left: 10px;
+}
+
+.top-bar .title-area .name label{
+	color: #FFFFFF;	
+}
+
+.top-bar .title-area .name h2 {
+	background-color: #f04124;
+}
+
+.tab-bar .title{
+	color: #FFFFFF;	
+	background-color: #f04124;
+	padding: 12.5px 10px 12.5px 10px;	
+}
+
+.tab-bar .title label {
+	color: #FFFFFF;	
+}
+
+.reveal-modal {
+		margin-top: 50px;
+}
+	
+@media only screen and (max-width: 40em) {
+	.reveal-modal {
+		min-height: 50vh;
+	}
+}
+
+[aria-hidden="true"]{
+	display: none;
+}
+
+[aria-cargo-events-empty="false"]{
+	display: none;
+}
+
+[aria-cargo-misdirected="false"]{
+	display: none;
+}
+
+[aria-cargo-routed="false"]{
+	display: none;
+}
+
+[aria-cargo-not-routed="false"]{
+	display: none;
+}
+
+[aria-cargo-misrouted="false"]{
+	display: none;
+}
+
+[aria-route-candidates-empty="false"]{
+	display: none;
+}
+
+[aria-route-candidates="false"]{
+	display: none;
+}
