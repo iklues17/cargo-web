@@ -4,6 +4,10 @@ server:
 zuul:
   ignored-services: "*"
   routes:
+    BookingService:
+      path: /booking/**
+      serviceId: Cargobooking
+      stripPrefix: true
     CargoTrackerService:
       path: /tracker/**
       serviceId: Cargotracker
