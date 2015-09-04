@@ -6,11 +6,16 @@ $(function(){
             "": "showDashboard",
             "booking": "showBooking",
             "track": "showTrack",
-            "my-page": "showMyPage",
+            "track/:trackingId": "showTrack",
             "about": "showAbout",
+            // Right Menu view
+            "my-page": "showMyPage",
+            "my-page/:tabName": "showMyPage",
             "sign-in": "showSignIn",
             "sign-up": "showSignUp",
+            "sign-out": "showSignOut",
             // Subview
+            "detail/:bookingId": "showBookingDetail",
             "change-destination/:bookingId": "showChangeDestination",
             // Util View
             "success": "showSuccess"
@@ -19,11 +24,16 @@ $(function(){
         showDashboard: page.Dashboard,
         showBooking: page.Booking,
         showTrack: page.Track,
-        showMyPage: page.MyPage,
         showAbout: page.About,
+        
+        showMyPage: page.MyPage,
         showSignIn: page.SignIn,
         showSignUp: page.SignUp,
+        showSignOut: page.SignOut,
+        
         showChangeDestination: page.ChangeDestination,
+        showBookingDetail: page.bookingDetailSection,
+        
         showSuccess: page.Success
 
     }));

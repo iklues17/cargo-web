@@ -4,9 +4,14 @@
 
     var root = this;
     var comm = root.comm = {};
-
+    var domain = root.domain = {};
+    
 }).call(this);
 
+
+$(document).ready(function(){
+    page.MenuTop();
+});
 
 $(document).foundation({
 	offcanvas : {
@@ -18,6 +23,11 @@ $(document).foundation({
 		close_on_click : false
 	}
 });
+
+comm.isLogedin = false;
+
+// Login 하면 저장되는 유저정보
+comm.I = {};
 
 comm.getHtml = function (path) {
 
@@ -33,31 +43,51 @@ comm.getHtml = function (path) {
 };
 
 comm.initPage = function () {
+	
+	var movePage = true;
+	if(!comm.isLogedin){
+		if(!window.location.hash.startsWith("#sign")){
+			window.location.hash = "#sign-in";
+			movePage = false;
+		}
+	}
+	
+//    $("#content").html('');
 
-    $("#content").html('');
+//    $("#header > .icon-bar > .item").removeClass('active');
 
-    $("#header > .icon-bar > .item").removeClass('active');
-
-    $(".top-bar-section > ul > li").removeClass('active');
+    $(".top-bar-section > div > ul.left > li").removeClass('active');
+    $(".top-bar-section > div > ul.right > li").removeClass('active');
     
-    if (location.hash == '#booking') {
-    	$(".top-bar-section > ul > li").eq(1).addClass('active');
-    } else if (location.hash == '#track') {
-    	$(".top-bar-section > ul > li").eq(2).addClass('active');
-    } else if (location.hash == "#my-page") {
-    	$(".top-bar-section > ul > li").eq(3).addClass('active');
-    } else if (location.hash == '#about') {
-    	$(".top-bar-section > ul > li").eq(4).addClass('active');
+    if (location.hash.startsWith('#booking')) {
+    	$(".top-bar-section > div > ul.left > li").eq(1).addClass('active');
+    } else if (location.hash.startsWith('#track')) {
+    	$(".top-bar-section > div > ul.left > li").eq(2).addClass('active');
+    } else if (location.hash.startsWith('#about')) {
+    	$(".top-bar-section > div > ul.left > li").eq(3).addClass('active');
+    }
+    // Top Right Bar - login state
+    else if (location.hash.startsWith("#my-page")) {
+    	$(".top-bar-section > div > ul.right > li").eq(0).addClass('active');
+    } else if (location.hash.startsWith("#sign-out")) {
+    	$(".top-bar-section > div > ul.right > li").eq(1).addClass('active');
+    }
+    // Top Rigth Bar - logout state
+    else if (location.hash.startsWith('#sign-in')) {
+    	$(".top-bar-section > div > ul.right > li").eq(0).addClass('active');
+    } else if (location.hash.startsWith('#sign-up')) {
+    	$(".top-bar-section > div > ul.right > li").eq(1).addClass('active');
     } else {
-    	$(".top-bar-section > ul > li").eq(0).addClass('active');
+    	$(".top-bar-section > div > ul.left > li").eq(0).addClass('active');
     }
 
+    return movePage;
 };
 
-comm.login = function(){
-	var $signInMenu = $('[data-login="false"]');
-	$signInMenu.find('label').text('Logout');
-	page.signUpPage();
+comm.logout = function(){
+//	var $signInMenu = $('[data-login="false"]');
+//	$signInMenu.find('label').text('Logout');
+//	page.signUpPage();
 };
 
 comm.queryStringToJson = function(queryString){
@@ -73,8 +103,6 @@ comm.openModalForErrorMsg = function(errorMsg, followup){
 			+ '</div>');
 	$('#myModal').foundation('reveal', 'open');
 };
-
-
 
 comm.getLocations = function(){
 	return [
@@ -94,6 +122,14 @@ comm.getLocations = function(){
 	];
 }
 
+comm.getCompanies = function(){
+	return [
+		{"name": "Samsung SDS"	 , "companyId": "23489056"},
+		{"name": "A사"	 , "companyId": "128034"},
+		{"name": "B사"	 , "companyId": "34905"}
+	];
+}
+
 comm.appendSelectLocations = function($target){
 	$.each(comm.getLocations(), function(i){
 		$target.append('<option value="'+this.unLocode+'">'+this.name+'</option>');
@@ -110,10 +146,35 @@ Handlebars.registerHelper('table-head', function () {
     return th;
 });
 
-//Handlebars.registerHelper('bookingId', function (arg) {
-//	debugger;
-//	return '<a href="#booking-detail">'+this.bookingId+'</a>';
-//	return options.fn(this);
-//    var th = '<th style="width:'+this.width+'" class="'+(this.hidden == true ? 'hide' : '')+'">'+this.display+'</th>';
-//    return fn;
-//});
+Handlebars.registerHelper('entry-form-center', function(){
+	var fieldHtml = "";
+	if(this.viewonly){
+		fieldHtml = '<label class="form-input-to-label">'+this.value+'</label>';
+	}else{
+		fieldHtml = (this.type === 'select')?'<select ' : '<input type="'+this.type+'" ';
+		fieldHtml += 'id="'+this.id+'" ';
+		fieldHtml +=' name="'+this.name+'" ';
+		fieldHtml +=(this.value)?' value="'+this.value+'" ': '';
+		fieldHtml +=(this.size)?' size="'+this.size+'" ' : '';
+		fieldHtml +=(this.min)?' min="'+this.min+'" ' : '';
+		fieldHtml +=(this.maxlength)?' maxlength="'+this.maxlength+'" ' : '';
+		fieldHtml +=(this.placeholder)?' placeholder="'+this.placeholder+'" ' : '';
+		fieldHtml +=(this.required)?' '+(this.required?'required':' ') : '';
+		fieldHtml +=(this.disabled)?' '+(this.disabled?'disabled':' ') : '';
+		fieldHtml +=(this.type === 'select')?' ></select>' : ' />';
+	}
+	
+	var row = '<div class="row entry-row">'
+		+'<div class="small-12">'
+		+ '<div class="row">'
+		+  '<div class="small-4 columns">'
+		+   '<label for="'+this.name+'" class="inline right">'+this.displayName+'</label>'
+		+  '</div>'
+		+  '<div class="small-5 left columns">'
+		+   fieldHtml
+		+  '</div>'
+		+ '</div>'
+		+'</div>'
+		+'</div>';
+	return row;
+});

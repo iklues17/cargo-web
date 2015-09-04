@@ -1,6 +1,10 @@
 "use strict";
 		
 page.bookedCargosGrid = function (datas) {
+	
+    if(!comm.initPage()){
+    	return;
+    }
 
 	var env = {
 		targetId: "#divBookedCargos",
@@ -14,12 +18,12 @@ page.bookedCargosGrid = function (datas) {
 
         tableheaders : [
             {display:'ID',	 		hidden:false, width: '10%'},
-            {display:'Origin',		hidden:false, width: '20%'},
-            {display:'Destination',	hidden:false, width: '20%'},
-            {display:'Arrival Date',hidden:false, width: '20%'},
-            {display:'Commodity',	hidden:false, width: '10%'},
+            {display:'Origin',		hidden:false, width: '15%'},
+            {display:'Destination',	hidden:false, width: '15%'},
+            {display:'Arrival Date',hidden:false, width: '15%'},
+            {display:'Commodity',	hidden:false, width: '15%'},
             {display:'Q.T',			hidden:false, width: '10%'},
-            {display:'Status',		hidden:false, width: '10%'}
+            {display:'Status',		hidden:false, width: '20%'}
         ],
         tabledatas: datas,
         link: "*.html"
@@ -44,7 +48,8 @@ page.bookedCargosGrid = function (datas) {
 		    "click tbody>tr": function (e) {
 		    	$(e.currentTarget).parent().find('.recode-selected').removeClass('recode-selected');
 		    	$(e.currentTarget).addClass('recode-selected');
-		    	page.bookingDetailSection($(e.currentTarget).attr('id'));
+		    	window.location.hash="detail/"+$(e.currentTarget).attr('id');
+//		    	page.bookingDetailSection($(e.currentTarget).attr('id'));
 		    }
         }
     });

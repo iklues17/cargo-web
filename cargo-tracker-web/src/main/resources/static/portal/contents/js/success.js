@@ -2,8 +2,6 @@
 
 page.successPage = function (options) {
 
-	comm.initPage();
-debugger;
 	var options = {
 		message: options.message || "Your Request is complete!",
 		buttons: [{

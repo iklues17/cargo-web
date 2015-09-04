@@ -1,15 +1,46 @@
 <div class="row">
-	<div class="small-2 large-2 columns">
-		<ul class="side-nav" role="navigation" title="Link List">
-		   <li role="menuitem"><a href="#">My Info</a></li>
-		   <li role="menuitem"><a href="#">Password</a></li>
-		 </ul>
+	<div class="small-12 columns">
+		<fieldset>
+			<legend>My Cargos</legend>
+			<div class="row entry-row">
+				<div class="small-4 columns">
+					<div>Not Approval yet</div>
+					<div class="cargo-box not-approval">3</div>
+				</div>
+				<div class="small-4 columns">
+					<div>Not Shipping yet</div>
+					<div class="cargo-box not-shipping">3</div>
+				</div>
+				<div class="small-4 columns">
+					<div>Misrouted</div>
+					<div class="cargo-box misrouted">3</div>
+				</div>
+			</div>
+			<div class="row entry-row">
+				<div class="small-4 columns">
+					<div>Shipping</div>
+					<div class="cargo-box shipping">3</div>
+				</div>
+				<div class="small-4 columns">
+					<div>Completed</div>
+					<div class="cargo-box completed">3</div>
+				</div>
+				<div class="row entry-row">
+					<div class="small-4 columns">
+						<div>Total</div>
+						<div class="cargo-box">3</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
 	</div>
-	<div class="small-10 large-10 columns">
+</div>
+<div class="row">
+	<div class="small-12 columns">
 		 <form>
-			<div class="row">
+			<div class="row entry-row">
 				<fieldset>
-					<legend>My Info.</legend>
+					<legend>My Information</legend>
 					<label>Email Address
 						<input name="emailAddress" type="email" placeholder="Inputs your email address..." readonly value="aoa.seolhyun@samsung.com"/>
 					</label>
@@ -30,10 +61,10 @@
 					</select></label>
 				</fieldset>
 			</div>
-			<div class="row">
+			<div class="row entry-row">
 				<ul class="button-group radius right">
-					<li><div id="btnSave" role="button" class="button" tabindex="0">Save</div></li>
-					<li><div id="btnBack" role="button" class="button secondary">Cancel</div></li>
+					<li><div id="btnSave" role="button" class="button small" tabindex="0">Save</div></li>
+					<li><div id="btnBack" role="button" class="button small secondary">Cancel</div></li>
 				</ul>
 			</div>
 		</form>

@@ -1,4 +1,3 @@
-"use strict";
 		
 page.Dashboard = (function(){
 	var bookedCargos = [];
@@ -57,7 +56,9 @@ page.Dashboard = (function(){
 	
 	return function(){
 
-	    comm.initPage();
+		if(!comm.initPage()){
+	    	return;
+	    }
 
 	    template.RenderOne({
 	        target: "#body",

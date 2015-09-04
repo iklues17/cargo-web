@@ -2,6 +2,10 @@
 		
 page.bookingDetailSection = function (bookingId) {
 
+	if(!comm.initPage()){
+    	return;
+    }
+	
 	var env = {
 		targetId: "#divBookingDetail",
 		tagName: "div",
@@ -10,6 +14,10 @@ page.bookingDetailSection = function (bookingId) {
 		html: "contents/booking-detail.html"
 	};
 
+	//Dashboard에 종속된 화면이므로 대쉬보드 화면이 떠잇는지 확인 후 없으면 로딩
+	if($(env.targetId).length === 0){
+		page.Dashboard();
+	}
 	
 //	var trackingId = getParameterByName('trackingId');
 //	$.ajax({
@@ -30,38 +38,47 @@ page.bookingDetailSection = function (bookingId) {
      	origin: 'BUSAN',
      	destination: 'SEOUL',
         arrDate: '2015-09-09',
-        comodity: 'Phone',
+        commodity: 'Phone',
         quantity: 3,
         status: 'Not Accepted',
         misrouted: false,
-//    	legs: [
-//    	    {
-//        		voyageNumber: "0200T",
-//        		fromUnLocode: "USCHI",
-//        		toUnLocode: "CNHKG",
-//        		loadTime: "08/24/2015 06:31 오후 KST",
-//        		unloadTime: "08/25/2015 09:09 오후 KST",
-//        		from: "Chicago (USCHI)",
-//        		to: "CNHKG (Hong Kong)"
-//    		},{
-//    			voyageNumber: "0300A",
-//    			fromUnLocode: "CNHKG",
-//    			toUnLocode: "USDAL",
-//    			loadTime: "08/28/2015 05:34 오전 KST",
-//    			unloadTime: "08/29/2015 07:11 오전 KST",
-//    			from: "Hong Kong (CNHKG)",
-//    			to: "USDAL (Dallas)"
-//    		},{
-//    			voyageNumber: "0301S",
-//    			fromUnLocode: "USDAL",
-//    			toUnLocode: "JNTKO",
-//    			loadTime: "08/31/2015 11:48 오전 KST",
-//    			unloadTime: "09/01/2015 01:49 오후 KST",
-//    			from: "Dallas (USDAL)",
-//    			to: "JNTKO (Tokyo)"
-//    		}
-//    	]
+        trackingId: "ABC123",
+    	legs: [
+    	    {
+        		voyageNumber: "0200T",
+        		fromUnLocode: "USCHI",
+        		toUnLocode: "CNHKG",
+        		loadTime: "08/24/2015 06:31 오후 KST",
+        		unloadTime: "08/25/2015 09:09 오후 KST",
+        		from: "Chicago (USCHI)",
+        		to: "CNHKG (Hong Kong)"
+    		},{
+    			voyageNumber: "0300A",
+    			fromUnLocode: "CNHKG",
+    			toUnLocode: "USDAL",
+    			loadTime: "08/28/2015 05:34 오전 KST",
+    			unloadTime: "08/29/2015 07:11 오전 KST",
+    			from: "Hong Kong (CNHKG)",
+    			to: "USDAL (Dallas)"
+    		},{
+    			voyageNumber: "0301S",
+    			fromUnLocode: "USDAL",
+    			toUnLocode: "JNTKO",
+    			loadTime: "08/31/2015 11:48 오전 KST",
+    			unloadTime: "09/01/2015 01:49 오후 KST",
+    			from: "Dallas (USDAL)",
+    			to: "JNTKO (Tokyo)"
+    		}
+    	]
 	};
+    
+    datas.entryForm = [
+        {value: datas.bookingId, viewonly: true, displayName: "Booking ID", name:"bookingId"},
+        {value: datas.origin, viewonly: true, displayName: "Origin", name:"origin"},
+        {value: datas.destination, viewonly: true, displayName: "Destination", name:"destination"},
+        {value: datas.status, viewonly: true, displayName: "Booking Status", name:"status"},
+        {value: datas.trackingId, viewonly: true, displayName: "Tracking ID", name:"trackingId"}
+	];
     
     template.RenderOne({
         target: env.targetId,

@@ -1,8 +1,11 @@
 "use strict";
 
 page.About = function () {
-    comm.initPage();
-
+	
+    if(!comm.initPage()){
+    	return;
+    }
+    
     template.RenderOne({
         target: "#body",
         tagName: "div",

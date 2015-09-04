@@ -1,8 +1,11 @@
 <div id="container" class="panel">
-	<span class="success label">Details for Booked cargo
-		{{bookingId}}</span>
+	<span class="success label">Details</span>
 	<table id="tblCargoDetail">
 		<tbody>
+			<tr>
+				<td>Booking ID</td>
+				<td>{{bookingId}}</td>
+			</tr>
 			<tr>
 				<td>Origin</td>
 				<td>{{origin}}</td>
@@ -20,13 +23,20 @@
 			</tr>
 			{{/unless}}
 			<tr>
-				<td>Arrival deadline</td>
-				<td>{{arrDate}}</td>
+				<td>Booking Status</td>
+				<td>{{status}}</td>
 			</tr>
+			{{#if trackingId}}
+			<tr>
+				<td>Tracking ID</td>
+				<td><a href="#track/{{trackingId}}">{{trackingId}}</a></td>
+			</tr>
+			{{/if}}
 		</tbody>
 	</table>
 	<p></p>
 	
+	<span class="success label">Itinerary</span>
 	{{#if legs}}
 	<div id="divRouted">
 		{{#if misrouted}}
@@ -34,7 +44,6 @@
 			<p><em>Cargo is misrouted</em></p>
 		</div>
 		{{/if}}
-		<span class="success label">Itinerary</span>
 		<table>
 			<thead>
 				<tr>
