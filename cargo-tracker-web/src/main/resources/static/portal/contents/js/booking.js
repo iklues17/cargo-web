@@ -26,21 +26,22 @@ page.Booking = (function () {
 		},
 		
 		doBook : function(data){
-			console.log("API Call(bookingId:"+data.bookingId+") PUT /booking/bookings/{bookingId}/change-destination");
 			console.log(data);
-//			$.ajax({
-//				url: "http://localhost:9999/tracker/cargos/"+data.trackingId+"/change-destination",
-//				method: "POST",
-//				data: JSON.stringify(data),
-//				dataType: "json",
-//				contentType: "application/json",
-//				error:function( jqXHR,  textStatus,  errorThrown){
-//					console.log(textStatus);
-//				},
-//				complete : function(text, xhr){
-//					location.href = "/admin/cargoDetail.html?trackingId="+data.trackingId;
-//				}
-//			});
+			$.ajax({
+				url: "http://localhost:9999/booking/bookings",
+				method: "POST",
+				data: JSON.stringify(data),
+				dataType: "json",
+				contentType: "application/json",
+				success: function(data, textStatus, jqXHR){
+					window.location.href = "/portal/contents/dashboard.html";
+				},
+				error:function( jqXHR,  textStatus,  errorThrown){
+					console.log(textStatus);
+				},
+				complete : function(text, xhr){
+				}
+			});
 		}
 			
 	};

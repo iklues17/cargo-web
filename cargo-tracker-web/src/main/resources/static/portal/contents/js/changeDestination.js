@@ -38,7 +38,6 @@ page.ChangeDestination = (function(){
 	    	legs: []
 		};
 		
-		
 	};
 	var formView = {
 		

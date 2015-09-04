@@ -12,7 +12,7 @@
 			</tr>
 			<tr>
 				<td>Destination</td>
-				<td>{{destination}}</td>
+				<td>{{finalDestination}}</td>
 			</tr>
 			{{#unless legs}}
 			<tr>
@@ -23,8 +23,12 @@
 			</tr>
 			{{/unless}}
 			<tr>
+				<td>Arrival deadline</td>
+				<td>{{arrivalDeadline}}</td>
+			</tr>
+			<tr>
 				<td>Booking Status</td>
-				<td>{{status}}</td>
+				<td>{{bookingStatus}}</td>
 			</tr>
 			{{#if trackingId}}
 			<tr>
