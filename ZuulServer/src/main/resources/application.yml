@@ -16,6 +16,10 @@ zuul:
       path: /pathfinder/**
       serviceId: Pathfinder
       stripPrefix: true
+    CargoUserService: 
+      path: /user/**
+      serviceId: Cargouser
+      stripPrefix: true
 
 hystrix:
   command:
