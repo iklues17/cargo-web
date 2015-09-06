@@ -3,8 +3,19 @@
 page.MenuTop = (function () {
 	
 	return function(){
+
+		var I = $.cookie('I');
+		if(I !== undefined){
+			comm.isLogedin = true;
+			comm.I = JSON.parse(I);
+		}
 		
-		var datas = {isLogedin : comm.isLogedin};
+		var datas = {
+			isLogedin : comm.isLogedin,
+			emailAddress: comm.I.emailAddress,
+			firstName: comm.I.firstName,
+			lastName: comm.I.lastName
+		};
 		
 	    template.RenderOne({
 	        target: ".top-bar-section",

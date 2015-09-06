@@ -37,33 +37,42 @@
 </div>
 <div class="row">
 	<div class="small-12 columns">
-		 <form>
+		 <form id="formMyInfo">
 			<div class="row entry-row">
 				<fieldset>
 					<legend>My Information</legend>
+					<ul id="btnTop" class="button-group right radius" style="margin-top:-20px;">
+						<li><div id="btnModify" class="tiny button warning" style="margin-bottom:0px;">Modify</div></li>
+						<li><div id="btnPwdReset" class="tiny button warning" style="margin-bottom:0px;">Password Reset</div></li>
+						<li><div id="btnWithdrowal" class="tiny button secondary" style="margin-bottom:0px;">Withdrowal</div></li>
+					</ul>
 					<label>Email Address
-						<input name="emailAddress" type="email" placeholder="Inputs your email address..." readonly value="aoa.seolhyun@samsung.com"/>
+						<input name="emailAddress" type="email" placeholder="Inputs your email address..." disabled />
 					</label>
-					<label>Password
-						<input name="password" type="password" placeholder="Inputs your password..." readonly value="1234"/>
+					<label class="hide">Password
+						<input name="password" type="password" placeholder="Inputs your password..."  value="1234567890" disabled/>
 					</label>
 					<label>First Name
-						<input name="firstName" type="text" placeholder="Inputs your Firstname..." readonly value="Seolhyun"/>
+						<input name="firstName" type="text" placeholder="Inputs your Firstname..." disabled />
 					</label>
 					<label>Last Name
-						<input name="lastName" type="text" placeholder="Inputs your Lastname..." readonly value="Kim"/>
+						<input name="lastName" type="text" placeholder="Inputs your Lastname..." disabled />
 					</label>
-					<label>Role <select name="userRole" disabled>
-						<option value="admin">Admin</option>
-						<option value="sysAdmin">System Admin</option>
-						<option value="customer">Customer</option>
-						<option value="manager" selected >Manager</option>
-					</select></label>
+					<label>Your Company 
+						<select name="company" disabled></select>
+					</label>
+					<label>Role 
+						<select name="role" disabled>
+							<option id="MEMBER">Member</option>
+							<option id="MANAGER">Cargo Manager</option>
+							<option id="ADMIN">Administrator</option>
+						</select>
+					</label>
 				</fieldset>
 			</div>
-			<div class="row entry-row">
+			<div id="btnBottom" class="row entry-row hide">
 				<ul class="button-group radius right">
-					<li><div id="btnSave" role="button" class="button small" tabindex="0">Save</div></li>
+					<li><div id="btnSave" role="button" class="button small" tabindex="0" data-mode="view">Save</div></li>
 					<li><div id="btnBack" role="button" class="button small secondary">Cancel</div></li>
 				</ul>
 			</div>

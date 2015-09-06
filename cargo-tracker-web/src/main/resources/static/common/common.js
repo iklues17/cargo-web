@@ -24,6 +24,9 @@ $(document).foundation({
 	}
 });
 
+comm.server = {};
+comm.server.url = "http://localhost:9999";
+
 comm.isLogedin = false;
 
 // Login 하면 저장되는 유저정보
@@ -95,10 +98,21 @@ comm.queryStringToJson = function(queryString){
 };
 
 comm.openModalForErrorMsg = function(errorMsg, followup){
+	$('body').find("#myModal").remove();
 	$('body').append('<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">'
 			+ '<h2 id="modalTitle">Sorry. Your request is failed.</h2>'
 			+  '<p class="lead">'+errorMsg+'</p>'
 			+  '<p>'+followup+'</p>'
+			+  '<a class="close-reveal-modal" aria-label="Close">&#215;</a>'
+			+ '</div>');
+	$('#myModal').foundation('reveal', 'open');
+};
+
+comm.openModalForSuccessMsg = function(successMsg){
+	$('body').find("#myModal").remove();
+	$('body').append('<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">'
+			+ '<h2 id="modalTitle">Success</h2>'
+			+  '<p class="lead">for '+successMsg+'</p>'
 			+  '<a class="close-reveal-modal" aria-label="Close">&#215;</a>'
 			+ '</div>');
 	$('#myModal').foundation('reveal', 'open');
@@ -133,6 +147,12 @@ comm.getCompanies = function(){
 comm.appendSelectLocations = function($target){
 	$.each(comm.getLocations(), function(i){
 		$target.append('<option value="'+this.unLocode+'">'+this.name+'</option>');
+	});
+}
+
+comm.appendSelectCompanies = function($target){
+	$.each(comm.getCompanies(), function(i){
+		$target.append('<option value="'+this.companyId+'">'+this.name+'</option>');
 	});
 }
 

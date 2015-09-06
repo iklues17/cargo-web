@@ -8,7 +8,7 @@ page.Dashboard = (function(){
 			var userId = "joon";
 			$.ajax({
 				async: false,
-				url: "http://localhost:9999/booking/bookings/of/"+userId,
+				url: comm.server.url + "/booking/bookings/of/"+userId,
 				method: "GET",
 				dataType: "json",
 				contentType: "application/json",
@@ -18,26 +18,6 @@ page.Dashboard = (function(){
 				complete : function(text, xhr){
 				}
 			});
-//			bookedCargos = [
-//	             {
-//	             	bookingId: '1',
-//	             	origin: 'BUSAN',
-//	             	destination: 'SEOUL',
-//	                arrDate: '2015-09-09',
-//	                comodity: 'Phone',
-//	                quantity: 3,
-//	                status: 'Not Accepted'
-//	             },
-//	             {
-//	             	bookingId: '2',
-//	             	origin: 'SUWON',
-//	             	destination: 'SEOUL',
-//	                arrDate: '2015-09-09',
-//	                comodity: 'Phone',
-//	                quantity: 3,
-//	                status: 'Not Accepted'
-//	             }
-//	         ]; // RESTful api callback data example
 		}
 	};
 	

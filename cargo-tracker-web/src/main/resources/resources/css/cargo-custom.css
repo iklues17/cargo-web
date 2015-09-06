@@ -2,6 +2,14 @@
 	font-size: 1rem;
 }
 
+.button.secondary.active {
+	 background-color: #b9b9b9;
+}
+
+.button.warning.active {
+	 background-color: #cf6e0e;
+}
+
 .form-input-to-label {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;

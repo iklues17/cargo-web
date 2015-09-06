@@ -80,6 +80,11 @@
 			<artifactId>jvectormap</artifactId>
 			<version>2.0.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-cookie</artifactId>
+		    <version>1.4.1</version>
+		</dependency>
 	</dependencies>
 	
 	<dependencyManagement>

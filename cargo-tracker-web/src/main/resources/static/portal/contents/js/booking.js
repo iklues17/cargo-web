@@ -28,7 +28,7 @@ page.Booking = (function () {
 		doBook : function(data){
 			console.log(data);
 			$.ajax({
-				url: "http://localhost:9999/booking/bookings",
+				url: comm.server.url+"/booking/bookings",
 				method: "POST",
 				data: JSON.stringify(data),
 				dataType: "json",

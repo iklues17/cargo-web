@@ -21,7 +21,7 @@ page.bookingDetailSection = function (bookingId) {
 	var datas;
 	$.ajax({
 		async: false,
-		url: "http://localhost:9999/booking/bookings/"+bookingId,
+		url: comm.server.url + "/booking/bookings/"+bookingId,
 		method: "GET",
 		dataType: "json",
 		contentType: "application/json",
