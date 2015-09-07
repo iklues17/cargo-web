@@ -4,8 +4,7 @@ page.Dashboard = (function(){
 	
 	var getTrackings = {
 		init : function(){
-			//var userId = getParameterByName('userId');
-			var userId = "joon";
+			var userId = comm.I.id;
 			$.ajax({
 				async: false,
 				url: comm.server.url + "/booking/bookings/of/"+userId,

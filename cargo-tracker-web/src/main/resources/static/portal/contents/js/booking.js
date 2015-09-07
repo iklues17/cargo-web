@@ -22,6 +22,7 @@ page.Booking = (function () {
 		
 		getFormData: function(){
 			var formObj = comm.queryStringToJson($(ENV.ID_FORM).serialize());
+			formObj.userId = comm.I.id;
 			return formObj;
 		},
 		
@@ -34,12 +35,13 @@ page.Booking = (function () {
 				dataType: "json",
 				contentType: "application/json",
 				success: function(data, textStatus, jqXHR){
-					window.location.href = "/portal/contents/dashboard.html";
+					window.location.href = "";
 				},
 				error:function( jqXHR,  textStatus,  errorThrown){
 					console.log(textStatus);
 				},
 				complete : function(text, xhr){
+					window.location.href = "";
 				}
 			});
 		}
