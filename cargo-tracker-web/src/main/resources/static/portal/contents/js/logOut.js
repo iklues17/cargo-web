@@ -1,5 +1,5 @@
 
-page.SignOut = (function(){
+page.LogOut = (function(){
 	
 	var logout = function(){
 		//ajax
@@ -9,7 +9,7 @@ page.SignOut = (function(){
 		// Menu bar 다시 로딩
 		page.MenuTop();
 		// 로그인 화면으로 전환
-		window.location.hash = "#sign-in";
+		window.location.hash = "#log-in";
 	}
 	
 	return function(){
@@ -21,13 +21,13 @@ page.SignOut = (function(){
 	    template.RenderOne({
 	        target: "#body",
 	        tagName: "div",
-	        className: "sign-out",
-	        id: "bodySignOut",
+	        className: "log-out",
+	        id: "bodyLogOut",
 	        position: "new",
-	        template: comm.getHtml("contents/sign-out.html"),
+	        template: comm.getHtml("contents/log-out.html"),
 	        data: undefined,
 	        events: {
-	            "click #btnSignOut": function(){
+	            "click #btnLogOut": function(){
 	            	logout();
 	            }
 	        }

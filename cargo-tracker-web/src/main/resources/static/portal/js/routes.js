@@ -11,9 +11,9 @@ $(function(){
             // Right Menu view
             "my-page": "showMyPage",
             "my-page/:tabName": "showMyPage",
-            "sign-in": "showSignIn",
+            "log-in": "showLogIn",
+            "log-out": "showLogOut",
             "sign-up": "showSignUp",
-            "sign-out": "showSignOut",
             // Subview
             "detail/:bookingId": "showBookingDetail",
             "change-destination/:bookingId": "showChangeDestination",
@@ -27,9 +27,9 @@ $(function(){
         showAbout: page.About,
         
         showMyPage: page.MyPage,
-        showSignIn: page.SignIn,
+        showLogIn: page.LogIn,
+        showLogOut: page.LogOut,
         showSignUp: page.SignUp,
-        showSignOut: page.SignOut,
         
         showChangeDestination: page.ChangeDestination,
         showBookingDetail: page.bookingDetailSection,

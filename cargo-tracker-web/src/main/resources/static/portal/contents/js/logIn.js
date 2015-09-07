@@ -1,5 +1,5 @@
 
-page.SignIn = (function(){
+page.LogIn = (function(){
 	
 	var ENV = {
 		FORM_ID : "#formLogin"
@@ -54,16 +54,16 @@ page.SignIn = (function(){
 	    template.RenderOne({
 	        target: "#body",
 	        tagName: "div",
-	        className: "sign-in",
-	        id: "bodySignIn",
+	        className: "log-in",
+	        id: "bodyLogIn",
 	        position: "new",
-	        template: comm.getHtml("contents/sign-in.html"),
+	        template: comm.getHtml("contents/log-in.html"),
 	        data: undefined,
 	        events: {
 	            "click #btnCreateAccount": function() {
-	            	page.signUpPage();
+	    			window.location.hash = "#sign-up";
 	            },
-	            "click #btnSignIn": function(){
+	            "click #btnLogIn": function(){
 	            	login();
 	            }
 	        }
