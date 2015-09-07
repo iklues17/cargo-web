@@ -197,7 +197,7 @@ page.MyPage = (function(){
 					url: comm.server.url+"/user/withdrawal",
 					method: "POST",
 					data: JSON.stringify(formdata),
-					dataType: "json",
+//					dataType: "json",
 					contentType: "application/json",
 					success: function(data, textStatus, jqXHR){
 						comm.openModalForSuccessMsg("Goodbye my friend~!");
@@ -249,7 +249,7 @@ page.MyPage = (function(){
 		// Menu bar 다시 로딩
 		page.MenuTop();
 		// 로그인 화면으로 전환
-		window.location.hash = "#sign-in";
+		window.location.hash = "#log-in";
 	}
 	
 	var init = function(){

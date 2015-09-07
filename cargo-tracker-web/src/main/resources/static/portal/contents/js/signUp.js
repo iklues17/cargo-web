@@ -30,7 +30,7 @@ page.SignUp = (function(){
 			dataType: "json",
 			contentType: "application/json",
 			success: function(data, textStatus, jqXHR){
-				window.location.hash = "#sign-in";
+				window.location.hash = "#log-in";
 			},
 			error:function( jqXHR,  textStatus,  errorThrown){
 				var errorObj = jqXHR.responseJSON;
@@ -67,7 +67,7 @@ page.SignUp = (function(){
 	            	signup();
 	            },
 			    "click #btnBack": function() {
-			    	window.history.back();
+					window.location.hash = "#log-in";
 			    }
 	        },
 

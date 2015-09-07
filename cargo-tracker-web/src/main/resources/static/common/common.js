@@ -49,8 +49,8 @@ comm.initPage = function () {
 	
 	var movePage = true;
 	if(!comm.isLogedin){
-		if(!window.location.hash.startsWith("#sign")){
-			window.location.hash = "#sign-in";
+		if(!(window.location.hash.startsWith("#log") || window.location.hash.startsWith("#sign"))){
+			window.location.hash = "#log-in";
 			movePage = false;
 		}
 	}
@@ -72,11 +72,11 @@ comm.initPage = function () {
     // Top Right Bar - login state
     else if (location.hash.startsWith("#my-page")) {
     	$(".top-bar-section > div > ul.right > li").eq(0).addClass('active');
-    } else if (location.hash.startsWith("#sign-out")) {
+    } else if (location.hash.startsWith("#log-out")) {
     	$(".top-bar-section > div > ul.right > li").eq(1).addClass('active');
     }
     // Top Rigth Bar - logout state
-    else if (location.hash.startsWith('#sign-in')) {
+    else if (location.hash.startsWith('#log-in')) {
     	$(".top-bar-section > div > ul.right > li").eq(0).addClass('active');
     } else if (location.hash.startsWith('#sign-up')) {
     	$(".top-bar-section > div > ul.right > li").eq(1).addClass('active');
