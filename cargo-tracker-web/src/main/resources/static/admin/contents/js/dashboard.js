@@ -40,8 +40,6 @@ adminPage.Dashboard = (function(){
 	var notAcceptedBookingView = {
 		_dashboard: this,
 		
-		routedList: [],
-		
 		ID: {
 			grid: "#gridNotAccepted"
 		},
@@ -69,11 +67,11 @@ adminPage.Dashboard = (function(){
 				    +'<tbody>'
 					+'</tbody>'
 					+'</table>');
-			$.each(this.routedList, function(i){
-				target.find('tbody').append('<tr id="'+this.bookingId+'">'
-						+  '<td><a href="cargoDetail.html?bookingId='+this.bookingId+'">'+this.bookingId+'</a></td>'
-						+  '<td>'+this.origin+'</td>'
-						+  '<td>'+this.destination+'</td>'
+			$.each(bookingList, function(i){
+				target.find('tbody').append('<tr id="'+this.bookingId.idString+'">'
+						+  '<td><a href="#detail/not-accepted/'+this.bookingId.idString+'">'+this.bookingId.idString+'</a></td>'
+						+  '<td>'+this.origin.name+'('+this.origin.unLocode.idString+')</td>'
+						+  '<td>'+this.destination.name+'('+this.origin.unLocode.idString+')</td>'
 						+  '<td class="hide-for-small">'+this.arrivalDeadline+'</td>'
 						+  '<td class="hide-for-small">'+this.userId+'</td>'
 						+  '<td class="hide-for-small">'+this.commodity+'</td>'
@@ -241,6 +239,7 @@ adminPage.Dashboard = (function(){
 
 	        afterRender: function(Dashboard) {
 	        	getTrackings();
+	        	getBookings();
 	        } 
 	    });
 

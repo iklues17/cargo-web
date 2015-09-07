@@ -12,12 +12,84 @@ adminPage.cargoDetailSection = (function() {
 			contentType: "application/json",
 			success: function(data, textStatus, jqXHR){
 				bookingDetail = data;
-//				cargoDetailView.init();
+				bookingDetailView.init();
 			},
 			complete : function(text, xhr){
 			}
 		});
 		console.log("chage ds = " + bookingDetail);
+	};
+	
+	var bookingDetailView = {
+		_bookingDetail: {},
+		
+		ID: {
+			entry: "#tblCargoDetail",
+			BTN_CHANGE: "#btnChange",
+			BTN_ACCEPT: "#btnAccept"
+		},
+		
+		init: function(){
+			_bookingDetail = bookingDetail;
+			var that = this;
+			this.controlViewDiv();
+			this.printCargo();
+			$(this.ID.BTN_CHANGE).on("click", function(e){
+				window.location.hash = window.location.hash+'/change-destination';
+			});
+			$(this.ID.BTN_ACCEPT).on("click", function(e){
+				that.accetpBooking();
+			});
+		},
+		
+		//TODO
+		accetpBooking: function(){
+			alert("Accept");
+		},
+		
+		controlViewDiv: function(){
+			
+			$('[aria-cargo-routed]').attr('aria-cargo-routed', false);
+			$('[aria-cargo-misrouted]').attr('aria-cargo-misrouted', false);
+			$('[aria-cargo-not-routed]').attr('aria-cargo-not-routed', false);
+		},
+		
+		printCargo: function(){
+			var _this = this;
+			var bookingDetail = _bookingDetail;
+			
+			// entry
+			$(this.ID.entry).before('<span class="success label">Details for cargo '+bookingDetail.trackingId+'</span>');
+			$(this.ID.entry).append('<tbody>'
+				+ '<tr>'
+				+  '<td>Origin</td>'
+				+  '<td>'+bookingDetail.origin+'</td>'
+				+ '</tr>'
+				+ '<tr>'
+				+  '<td>Destination</td>'
+				+  '<td>'+bookingDetail.finalDestination+'</td>'
+				+ '</tr>'
+				+ '<tr>'
+				+  '<td></td>'
+	            +  '<td><a href="'+window.location.hash+'/change-destination">Change destination</a></td>'
+				+ '</tr>'
+				+ '<tr>'
+				+ '<tr>'
+				+  '<td>Arrival deadline</td>'
+				+  '<td>'+bookingDetail.arrivalDeadline+'</td>'
+				+ '</tr>'
+				+ '<tr>'
+				+  '<td colspan="2">'
+				+   '<div id="btnBottom" class="row entry-row">'
+				+    '<ul class="button-group radius">'
+				+     '<li><div id="btnChange" role="button" class="button small" style="margin-bottom:0px;" tabindex="0" data-mode="view">Change Destination</div></li>'
+				+     '<li><div id="btnAccept" role="button" class="button small" style="margin-bottom:0px;">Accept Booking</div></li>'
+				+    '</ul>'
+				+   '</div>'
+				+  '</td>'
+				+ '</tr>'
+				+'</tbody>');
+		}
 	};
 	
 	var getCargoDetail = function(trackingId){

@@ -149,12 +149,12 @@ adminPage.SelectItinerary = (function() {
 				contentType: "application/json",
 				success: function(data, textStatus, jqXHR){
 					console.log(data);
+					location.hash = location.hash.split('/select-itinerary')[0];
 				},
 				error:function( jqXHR,  textStatus,  errorThrown){
 					console.log(textStatus);
 				},
 				complete : function(text, xhr){
-					location.hash = location.hash.split('/select-itinerary')[0];
 				}
 			});
 		}

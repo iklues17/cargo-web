@@ -1,36 +1,21 @@
 adminPage.ChangeDestination = (function() {
 
-	var bookingDetail = {};
-	var cargoDetails = {};
-	
-	var getBookingDetail = function(bookingId){
-	
-		$.ajax({
-			url: "http://localhost:9999/booking/bookings/"+bookingId,
-			method: "GET",
-			dataType: "json",
-			contentType: "application/json",
-			success: function(data, textStatus, jqXHR){
-				bookingDetail = data;
-//				gridView.init();
-//				formView.init();
-			},
-			complete : function(text, xhr){
-			}
-		});
-		console.log("chage ds = " + bookingDetail);
+	var ENV =  {
+		id: "",
+		sourceUrl: "",
+		action: "",
+		method: ""
 	};
 	
-	var getCargoDetail = function(trackingId){
+	var getCargoDetail = function(id){
 		
 		$.ajax({
-			url: "http://localhost:9999/tracker/cargos/" + trackingId,
+			url: ENV.sourceUrl,
 			method: "GET",
 			dataType: "json",
 			contentType: "application/json",
 			success: function(data, textStatus, jqXHR){
-				cargoDetails = data;
-				gridView.init();
+				gridView.init(data);
 				formView.init();
 			},
 			complete : function(text, xhr){
@@ -47,16 +32,15 @@ adminPage.ChangeDestination = (function() {
 			trackingId: ""
 		},
 		
-		init: function(){
-			_cargoDetail = cargoDetails;
+		init: function(details){
+			_cargoDetail = details;
 			this.makeGrid();
 		},
 		
 		makeGrid: function(){
 			var cargoDetail = _cargoDetail;
-			this.ID.trackingId = cargoDetail.trackingId;
 			
-			$(this.ID.FROM).append('<span class="label">Change destination for cargo '+cargoDetail.trackingId+'</span>');
+			$(this.ID.FROM).append('<span class="label">Change destination for cargo '+ENV.id+'</span>');
 			$(this.ID.FROM).append('<table>'
 				+ '<tbody>'
 				+  '<tr>'
@@ -82,7 +66,7 @@ adminPage.ChangeDestination = (function() {
 		},
 		
 		getNewDestination: function(){
-			return {"trackingId": this.ID.trackingId, "destinationUnlocode": $(this.ID.SEL_LOCATIONS).val()};
+			return {"trackingId": ENV.id, "bookingId": ENV.id, "destinationUnlocode": $(this.ID.SEL_LOCATIONS).val()};
 		}
 	};
 	
@@ -97,11 +81,7 @@ adminPage.ChangeDestination = (function() {
 		init: function(){
 			_this = this;
 		
-			/* for Form submit (Content-Type: application/application/x-www-form-urlencoded) */
-//			$(this.ID.FORM).attr("method", "POST");
-//			$(this.ID.FORM).attr("action", "/trackings/"+_this._gridView.getNewDestination().trackingId+"/change-destination");
 			$(this.ID.FORM).submit(function(e){
-				/* for AjaxCall (Content-Type: application/json) */
 				e.preventDefault();
 				_this.doChangeDestination(_this._gridView.getNewDestination());
 			});
@@ -110,20 +90,40 @@ adminPage.ChangeDestination = (function() {
 		
 		doChangeDestination : function(data){
 			$.ajax({
-				url: "http://localhost:9999/tracker/cargos/"+data.trackingId+"/change-destination",
-				method: "POST",
+				url: ENV.action,
+				method: ENV.method,
 				data: JSON.stringify(data),
-				dataType: "json",
+				dataType: "text",
 				contentType: "application/json",
+				success: function(data, textStatus, jqXHR){
+					location.hash = location.hash.split('/change-destination')[0];
+				},
 				error:function( jqXHR,  textStatus,  errorThrown){
 					console.log(textStatus);
 				},
 				complete : function(text, xhr){
-					location.href = "/admin/cargoDetail.html?trackingId="+data.trackingId;
 				}
 			});
 		}
 			
+	};
+	
+	var bookingInit = function(id){
+		ENV = {
+			id: id,
+			sourceUrl: comm.server.url+"/booking/bookings/"+id,
+			action: comm.server.url+"/booking/bookings/"+id+"/change-destination",
+			method: "PUT"
+		}
+	};
+	
+	var trackingInit = function(id){
+		ENV = {
+			id: id,
+			sourceUrl: comm.server.url+"/tracker/cargos/"+id,
+			action: comm.server.url+"/tracker/cargos/"+id+"/change-destination",
+			method: "POST"
+		}
 	};
 	
 	
@@ -146,10 +146,11 @@ adminPage.ChangeDestination = (function() {
 
 	        afterRender: function() {
 	        	if(status === "not-accepted"){
-	        		getBookingDetail(id);
+	        		bookingInit(id);
 	        	}else{
-	        		getCargoDetail(id);
+	        		trackingInit(id);
 	        	}
+	        	getCargoDetail(id);
 	        } 
 	    });
 	};
