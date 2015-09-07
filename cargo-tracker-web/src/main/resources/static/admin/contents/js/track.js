@@ -1,4 +1,4 @@
-var Track = (function() {
+adminPage.Track = (function() {
 	var tracks = {}
 	
 	var formView = {
@@ -112,17 +112,26 @@ var Track = (function() {
 		
 	};
 	
-	return {
-		init : function() {
-			formView.init();
-			trackingView.init();
-		}
+	return function(){
+	    if(!comm.initPage()){
+	    	return;
+	    }
+	    
+	    template.RenderOne({
+	        target: "#body",
+	        tagName: "div",
+	        className: "about",
+	        id: "bodyAbout",
+	        position: "new",
+	        template: comm.getHtml("contents/track.html"),
+	        data: undefined,
+	        events: {
+	        },
+
+	        afterRender: function(Dashboard) { 
+				formView.init();
+				trackingView.init();
+	        } 
+	    });
 	};
 })();
-
-
-$(document).foundation();
-		
-$(document).ready(function(){
-	Track.init();
-});

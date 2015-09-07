@@ -1,5 +1,8 @@
+<<<<<<< Updated upstream
 "use strict";
 		
+=======
+>>>>>>> Stashed changes
 page.bookingDetailSection = function (bookingId) {
 
 	if(!comm.initPage()){

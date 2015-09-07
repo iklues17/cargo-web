@@ -1,10 +1,27 @@
-var Dashbord = (function(){
+adminPage.Dashboard = (function(){
+	
+	var bookingList = [];
 	var trackingList = [];
 	
-	/* bookingServiceFacade.listAllCargos() */
+	var getBookings = function(){
+		$.ajax({
+			url: comm.server.url + "/booking/bookings/not-accepted",
+			method: "GET",
+			//data: JSON.stringify(data),
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data, textStatus, jqXHR){
+				bookingList = data;
+				notAcceptedBookingView.init();
+			},
+			complete : function(text, xhr){
+			}
+		});
+	};
+	
 	var getTrackings = function(){
 		$.ajax({
-			url: "http://localhost:9999/tracker/cargos",
+			url: comm.server.url + "/tracker/cargos",
 			method: "GET",
 			//data: JSON.stringify(data),
 			dataType: "json",
@@ -18,7 +35,52 @@ var Dashbord = (function(){
 			complete : function(text, xhr){
 			}
 		});
-		//this.trackingList = data;
+	};
+	
+	var notAcceptedBookingView = {
+		_dashboard: this,
+		
+		routedList: [],
+		
+		ID: {
+			grid: "#gridNotAccepted"
+		},
+		
+		init: function(){
+			var _this = this;
+			this.makeGrid();
+		},
+		
+		makeGrid: function(){
+			var _this = this;
+			var target = $(this.ID.grid);
+			target.append('<table id="listNotAcceptedTab">'
+					+'<thead>'
+					+ '<tr>'
+					+  '<th width="140">Booking ID</th>'
+					+  '<th width="220">Origin</th>'
+					+  '<th width="200">Destination</th>'
+					+  '<th width="200" class="hide-for-small">Arrival Date</th>'
+					+  '<th width="200" class="hide-for-small">User ID</th>'
+					+  '<th width="240" class="hide-for-small">Commodity</th>'
+					+  '<th width="240" class="hide-for-small">Q.T</th>'
+					+ '</tr>'
+					+'</thead>'
+				    +'<tbody>'
+					+'</tbody>'
+					+'</table>');
+			$.each(this.routedList, function(i){
+				target.find('tbody').append('<tr id="'+this.bookingId+'">'
+						+  '<td><a href="cargoDetail.html?bookingId='+this.bookingId+'">'+this.bookingId+'</a></td>'
+						+  '<td>'+this.origin+'</td>'
+						+  '<td>'+this.destination+'</td>'
+						+  '<td class="hide-for-small">'+this.arrivalDeadline+'</td>'
+						+  '<td class="hide-for-small">'+this.userId+'</td>'
+						+  '<td class="hide-for-small">'+this.commodity+'</td>'
+						+  '<td class="hide-for-small">'+this.quantity+'</td>'
+						+ '</tr>');
+			});
+		}
 	};
 	
 	var routedView = {
@@ -60,7 +122,7 @@ var Dashbord = (function(){
 					+'</table>');
 			$.each(this.routedList, function(i){
 				target.find('tbody').append('<tr id="'+this.trackingId+'">'
-						+  '<td><a href="cargoDetail.html?trackingId='+this.trackingId+'">'+this.trackingId+'</a></td>'
+						+  '<td><a href="#detail/routed/'+this.trackingId+'">'+this.trackingId+'</a></td>'
 						+  '<td>'+this.origin+'</td>'
 						+  '<td>'+this.finalDestination+'</td>'
 						+  '<td class="hide-for-small">'+this.lastKnownLocation+'</td>'
@@ -106,7 +168,7 @@ var Dashbord = (function(){
 					+'</table>');
 			$.each(this.claimedList, function(i){
 				target.find('tbody').append('<tr id="'+this.trackingId+'">'
-						+  '<td><a href="cargoDetail.html?trackingId='+this.trackingId+'">'+this.trackingId+'</a></td>'
+						+  '<td><a href="#detail/claimed/'+this.trackingId+'">'+this.trackingId+'</a></td>'
 						+  '<td>'+this.origin+'</td>'
 						+  '<td>'+this.finalDestination+'</td>'
 						+ '</tr>');
@@ -149,7 +211,7 @@ var Dashbord = (function(){
 					+'</table>');
 			$.each(this.notRoutedList, function(i){
 				target.find('tbody').append('<tr id="'+this.trackingId+'">'
-						+  '<td><a href="cargoDetail.html?trackingId='+this.trackingId+'">'+this.trackingId+'</a></td>'
+						+  '<td><a href="#detail/not-routed/'+this.trackingId+'">'+this.trackingId+'</a></td>'
 						+  '<td>'+this.origin+'</td>'
 						+  '<td>'+this.finalDestination+'</td>'
 						+ '</tr>');
@@ -157,19 +219,31 @@ var Dashbord = (function(){
 		}
 	};
 	
-	return {
-		init : function() {
-			getTrackings();
-			//routedView.init();
-			//claimedView.init();
-			//notRoutedView.init();
-		}
+	return function(){
+
+		if(!comm.initPage()){
+	    	return;
+	    }
+
+	    template.RenderOne({
+	        target: "#body",
+	        tagName: "div",
+	        className: "dashboard",
+	        id: "bodyDashboard",
+	        position: "new",
+	        template: comm.getHtml("contents/dashboard.html"),
+	        data: {},
+	        events: {
+	            "click .dashboard": function () {
+	                alert("dashboard!");
+	            }
+	        },
+
+	        afterRender: function(Dashboard) {
+	        	getTrackings();
+	        } 
+	    });
+
 	};
+	
 })();
-
-
-$(document).foundation();
-		
-$(document).ready(function(){
-	Dashbord.init();
-});

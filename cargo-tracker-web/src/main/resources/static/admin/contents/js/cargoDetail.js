@@ -1,9 +1,27 @@
-var CargoDetail = (function() {
+adminPage.cargoDetailSection = (function() {
+
+	var bookingDetail = {};
 	var cargoDetail = {};
 	
-	var getCargoDetail = function(){
+	var getBookingDetail = function(bookingId){
 	
-		var trackingId = getParameterByName('trackingId');
+		$.ajax({
+			url: "http://localhost:9999/booking/bookings/"+bookingId,
+			method: "GET",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data, textStatus, jqXHR){
+				bookingDetail = data;
+//				cargoDetailView.init();
+			},
+			complete : function(text, xhr){
+			}
+		});
+		console.log("chage ds = " + bookingDetail);
+	};
+	
+	var getCargoDetail = function(trackingId){
+	
 		$.ajax({
 			url: "http://localhost:9999/tracker/cargos/"+trackingId,
 			method: "GET",
@@ -64,7 +82,7 @@ var CargoDetail = (function() {
 				+ '</tr>'
 				+ '<tr>'
 				+  '<td></td>'
-	            +  '<td><a href="changeDestination.html?trackingId='+cargoDetail.trackingId+'">Change destination</a></td>'
+	            +  '<td><a href="'+window.location.hash+'/change-destination">Change destination</a></td>'
 				+ '</tr>'
 				+ '<tr>'
 				+  '<td>Arrival deadline</td>'
@@ -97,23 +115,37 @@ var CargoDetail = (function() {
 			});
 			
 			// mis routed
-			$(this.ID.divMisrouted).find('a').attr('href', 'selectItinerary.html?trackingId='+cargoDetail.trackingId);
+			$(this.ID.divMisrouted).find('a').attr('href', window.location.hash+'/select-itinerary');
 			// not routed
-			$(this.ID.divNotRouted).find('a').attr('href', 'selectItinerary.html?trackingId='+cargoDetail.trackingId);
+			$(this.ID.divNotRouted).find('a').attr('href', window.location.hash+'/select-itinerary');
 		}
 	};
 	
-	return {
-		init : function() {
-			getCargoDetail();
-			//cargoDetailView.init();
-		}
+	
+	return function(status, id){
+
+		if(!comm.initPage()){
+	    	return;
+	    }
+	    
+	    template.RenderOne({
+	        target: "#body",
+	        tagName: "div",
+	        className: "about",
+	        id: "bodyAbout",
+	        position: "new",
+	        template: comm.getHtml("contents/cargo-detail.html"),
+	        data: undefined,
+	        events: {
+	        },
+
+	        afterRender: function() {
+	        	if(status === "not-accepted"){
+	        		getBookingDetail(id);
+	        	}else{
+	        		getCargoDetail(id);
+	        	}
+	        } 
+	    });
 	};
 })();
-
-
-$(document).foundation();
-		
-$(document).ready(function(){
-	CargoDetail.init();
-});

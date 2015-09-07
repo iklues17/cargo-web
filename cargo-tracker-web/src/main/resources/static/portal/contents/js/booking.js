@@ -32,16 +32,27 @@ page.Booking = (function () {
 				url: comm.server.url+"/booking/bookings",
 				method: "POST",
 				data: JSON.stringify(data),
+<<<<<<< Updated upstream
 				dataType: "json",
+=======
+				dataType: "text",
+>>>>>>> Stashed changes
 				contentType: "application/json",
 				success: function(data, textStatus, jqXHR){
 					window.location.href = "";
 				},
 				error:function( jqXHR,  textStatus,  errorThrown){
+<<<<<<< Updated upstream
 					console.log(textStatus);
 				},
 				complete : function(text, xhr){
 					window.location.href = "";
+=======
+					comm.openModalForErrorMsg(textStatus, "Contack us");
+					console.log(textStatus);
+				},
+				complete : function(text, xhr){
+>>>>>>> Stashed changes
 				}
 			});
 		}

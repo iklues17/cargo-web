@@ -1,8 +1,27 @@
-var ChangeDestination = (function() {
+adminPage.ChangeDestination = (function() {
+
+	var bookingDetail = {};
 	var cargoDetails = {};
 	
-	var getCargoDetail = function(){
-		var trackingId = getParameterByName('trackingId');
+	var getBookingDetail = function(bookingId){
+	
+		$.ajax({
+			url: "http://localhost:9999/booking/bookings/"+bookingId,
+			method: "GET",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data, textStatus, jqXHR){
+				bookingDetail = data;
+//				gridView.init();
+//				formView.init();
+			},
+			complete : function(text, xhr){
+			}
+		});
+		console.log("chage ds = " + bookingDetail);
+	};
+	
+	var getCargoDetail = function(trackingId){
 		
 		$.ajax({
 			url: "http://localhost:9999/tracker/cargos/" + trackingId,
@@ -107,18 +126,31 @@ var ChangeDestination = (function() {
 			
 	};
 	
-	return {
-		init : function() {
-			getCargoDetail();
-//			gridView.init();
-//			formView.init();
-		}
+	
+	return function(status, id){
+
+		if(!comm.initPage()){
+	    	return;
+	    }
+	    
+	    template.RenderOne({
+	        target: "#body",
+	        tagName: "div",
+	        className: "about",
+	        id: "bodyAbout",
+	        position: "new",
+	        template: comm.getHtml("contents/change-destination.html"),
+	        data: undefined,
+	        events: {
+	        },
+
+	        afterRender: function() {
+	        	if(status === "not-accepted"){
+	        		getBookingDetail(id);
+	        	}else{
+	        		getCargoDetail(id);
+	        	}
+	        } 
+	    });
 	};
 })();
-
-
-$(document).foundation();
-		
-$(document).ready(function(){
-	ChangeDestination.init();
-});

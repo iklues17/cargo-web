@@ -1,4 +1,4 @@
-var Resistration = (function() {
+adminPage.Registration = (function() {
 	
 	var formView = {
 			
@@ -17,8 +17,8 @@ var Resistration = (function() {
 				_this.doRegister(queryStringToJson($(this).serialize()));
 			});
 			
-			appendSelectLocations($(this.ID.SEL_ORIGIN));
-			appendSelectLocations($(this.ID.SEL_DESTIN));
+			comm.appendSelectLocations($(this.ID.SEL_ORIGIN));
+			comm.appendSelectLocations($(this.ID.SEL_DESTIN));
 			
 		},
 		
@@ -42,19 +42,25 @@ var Resistration = (function() {
 		}
 	};
 	
-	var register = function(){
-	};
-	
-	return {
-		init : function() {
-			formView.init();
-		}
+	return function(){
+	    if(!comm.initPage()){
+	    	return;
+	    }
+	    
+	    template.RenderOne({
+	        target: "#body",
+	        tagName: "div",
+	        className: "about",
+	        id: "bodyAbout",
+	        position: "new",
+	        template: comm.getHtml("contents/registration.html"),
+	        data: undefined,
+	        events: {
+	        },
+
+	        afterRender: function(Dashboard) { 
+	        	formView.init();
+	        } 
+	    });
 	};
 })();
-
-
-$(document).foundation();
-		
-$(document).ready(function(){
-	Resistration.init();
-});

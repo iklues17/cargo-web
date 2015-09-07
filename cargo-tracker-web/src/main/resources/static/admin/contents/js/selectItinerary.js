@@ -1,11 +1,28 @@
-var Itinerary = (function() {
-	//var cargoDetails = {};
+adminPage.SelectItinerary = (function() {
+
+	var bookingDetail = {};
 	var cargoDetail = {};
 	var routeCandidates = {};
 	
-//	ItinerarySelection.load()
-	var trackingId = getParameterByName('trackingId');
-	var getCargoDetail = function(){
+	var getBookingDetail = function(bookingId){
+	
+		$.ajax({
+			url: "http://localhost:9999/booking/bookings/"+bookingId,
+			method: "GET",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data, textStatus, jqXHR){
+				bookingDetail = data;
+//				getRouteCandidates();
+			},
+			complete : function(text, xhr){
+			}
+		});
+		console.log("chage ds = " + bookingDetail);
+	};
+	
+	var getCargoDetail = function(trackingId){
+		
 		$.ajax({
 			url: "http://localhost:9999/tracker/cargos/"+trackingId,
 			method: "GET",
@@ -13,14 +30,14 @@ var Itinerary = (function() {
 			contentType: "application/json",
 			success: function(data, textStatus, jqXHR){
 				cargoDetail = data;
-				getRouteCandidates();
+				getRouteCandidates(trackingId);
 			},
 			complete : function(text, xhr){
 			}
 		});
 	};
 		
-	var getRouteCandidates = function(){
+	var getRouteCandidates = function(trackingId){
 		$.ajax({
 			url: "http://localhost:9999/tracker/cargos/candidates",
 			method: "GET",
@@ -137,23 +154,38 @@ var Itinerary = (function() {
 					console.log(textStatus);
 				},
 				complete : function(text, xhr){
-					location.href = "/admin/cargoDetail.html?trackingId="+_cargoDetail.trackingId;
+					location.hash = location.hash.split('/select-itinerary')[0];
 				}
 			});
 		}
 	};
 	
-	return {
-		init : function() {
-			getCargoDetail();
-			//routeCandidatesView.init();
-		}
+	
+	return function(status, id){
+
+		if(!comm.initPage()){
+	    	return;
+	    }
+	    
+	    template.RenderOne({
+	        target: "#body",
+	        tagName: "div",
+	        className: "about",
+	        id: "bodyAbout",
+	        position: "new",
+	        template: comm.getHtml("contents/select-itinerary.html"),
+	        data: undefined,
+	        events: {
+	        },
+
+	        afterRender: function() {
+	        	if(status === "not-accepted"){
+	        		getBookingDetail(id);
+	        	}else{
+	        		getCargoDetail(id);
+	        	}
+	        } 
+	    });
 	};
 })();
-
-
-$(document).foundation();
-		
-$(document).ready(function(){
-	Itinerary.init();
-});
+	
