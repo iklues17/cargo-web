@@ -16,7 +16,7 @@ $(function(){
             "sign-up": "showSignUp",
             // Subview
             "detail/:bookingId": "showBookingDetail",
-            "change-destination/:bookingId": "showChangeDestination",
+            "detail/:bookingId/change-destination": "showChangeDestination",
             // Util View
             "success": "showSuccess"
             
