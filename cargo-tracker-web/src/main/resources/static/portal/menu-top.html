@@ -1,9 +1,11 @@
+{{#if isLogedin}}
 <ul class="left">
 	<li><a href="#">Dashboard</a></li>
 	<li><a href="#booking">Booking</a></li>
 	<li><a href="#track">Track</a></li>
 	<li><a href="#about">About</a></li>
 </ul>
+{{/if}}
 <ul class="right">
 	{{#if isLogedin}}
 	<li><a href="#my-page">{{firstName}}'s Page</a></li>

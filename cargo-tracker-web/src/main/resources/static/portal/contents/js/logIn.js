@@ -25,7 +25,12 @@ page.LogIn = (function(){
 				// Menu bar 다시 로딩
 				page.MenuTop();
 				// Main 화면으로 전환
-				window.location.hash = "";
+				var role = data.role
+				if(role == "MEMBER"){
+					window.location.hash = "";
+				}else{
+					window.location.href = "../admin/dashboard.html"
+				}
 			},
 			error:function( jqXHR,  textStatus,  errorThrown){
 				var errorObj = jqXHR.responseJSON;
