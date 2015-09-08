@@ -17,13 +17,13 @@ page.bookedCargosGrid = function (datas) {
     var datas = {
 
         tableheaders : [
-            {display:'ID',	 		hidden:false, width: '10%'},
-            {display:'Origin',		hidden:false, width: '15%'},
-            {display:'Destination',	hidden:false, width: '15%'},
-            {display:'Arrival Date',hidden:false, width: '15%'},
-            {display:'Commodity',	hidden:false, width: '15%'},
-            {display:'Q.T',			hidden:false, width: '10%'},
-            {display:'Status',		hidden:false, width: '20%'}
+            {display:'Booking ID',		hidden:false, width: '13%'},
+            {display:'Origin',			hidden:false, width: '18%'},
+            {display:'Destination',		hidden:false, width: '18%'},
+            {display:'Deadline',		hidden:false, width: '15%'},
+            {display:'Commodity',		hidden:false, width: '15%'},
+            {display:'Q.T',				hidden:false, width: '8%'},
+            {display:'Booking Status',	hidden:false, width: '10%'}
         ],
         tabledatas: datas,
         link: "*.html"

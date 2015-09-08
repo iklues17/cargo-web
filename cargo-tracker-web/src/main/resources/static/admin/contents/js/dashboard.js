@@ -58,8 +58,8 @@ adminPage.Dashboard = (function(){
 					+  '<th width="140">Booking ID</th>'
 					+  '<th width="220">Origin</th>'
 					+  '<th width="200">Destination</th>'
-					+  '<th width="200" class="hide-for-small">Arrival Date</th>'
-					+  '<th width="200" class="hide-for-small">User ID</th>'
+					+  '<th width="200" class="hide-for-small">Deadline</th>'
+//					+  '<th width="200" class="hide-for-small">User ID</th>'
 					+  '<th width="240" class="hide-for-small">Commodity</th>'
 					+  '<th width="240" class="hide-for-small">Q.T</th>'
 					+ '</tr>'
@@ -68,12 +68,12 @@ adminPage.Dashboard = (function(){
 					+'</tbody>'
 					+'</table>');
 			$.each(bookingList, function(i){
-				target.find('tbody').append('<tr id="'+this.bookingId.idString+'">'
-						+  '<td><a href="#detail/not-accepted/'+this.bookingId.idString+'">'+this.bookingId.idString+'</a></td>'
-						+  '<td>'+this.origin.name+'('+this.origin.unLocode.idString+')</td>'
-						+  '<td>'+this.destination.name+'('+this.origin.unLocode.idString+')</td>'
+				target.find('tbody').append('<tr id="'+this.bookingId+'">'
+						+  '<td><a href="#detail/not-accepted/'+this.bookingId+'">'+this.bookingId+'</a></td>'
+						+  '<td>'+this.origin+'</td>'
+						+  '<td>'+this.destination+'</td>'
 						+  '<td class="hide-for-small">'+this.arrivalDeadline+'</td>'
-						+  '<td class="hide-for-small">'+this.userId+'</td>'
+//						+  '<td class="hide-for-small">'+this.userId+'</td>'
 						+  '<td class="hide-for-small">'+this.commodity+'</td>'
 						+  '<td class="hide-for-small">'+this.quantity+'</td>'
 						+ '</tr>');

@@ -38,7 +38,7 @@ page.Booking = (function () {
 					window.location.href = "";
 				},
 				error:function( jqXHR,  textStatus,  errorThrown){
-					comm.openModalForErrorMsg(textStatus, "Contack us");
+					comm.openModalForErrorMsg(textStatus, "Contact us");
 					console.log(textStatus);
 				},
 				complete : function(text, xhr){

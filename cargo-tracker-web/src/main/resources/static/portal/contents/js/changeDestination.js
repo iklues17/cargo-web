@@ -12,31 +12,18 @@ page.ChangeDestination = (function(){
 	var getCargoDetail = function(bookingId){
 
 		console.log("API Call(bookingId:"+bookingId+") GET /booking/bookings/{bookingId}");
-//		$.ajax({
-//			url: "http://localhost:9999/tracker/cargos/" + trackingId,
-//			method: "GET",
-//			dataType: "json",
-//			contentType: "application/json",
-//			success: function(data, textStatus, jqXHR){
-//				cargoDetails = data;
-//				gridView.init();
-//				formView.init();
-//			},
-//			complete : function(text, xhr){
-//			}
-//		});
-		
-	    booking = {
-	     	bookingId: '1',
-	     	origin: 'BUSAN',
-	     	destination: 'SEOUL',
-	        arrDate: '2015-09-09',
-	        comodity: 'Phone',
-	        quantity: 3,
-	        status: 'Not Accepted',
-	        misrouted: false,
-	    	legs: []
-		};
+		$.ajax({
+			async: false,
+			url: comm.server.url+ "/booking/bookings/" + bookingId,
+			method: "GET",
+			dataType: "json",
+			contentType: "application/json",
+			success: function(data, textStatus, jqXHR){
+				booking = data;
+			},
+			complete : function(text, xhr){
+			}
+		});
 		
 	};
 	var formView = {
@@ -60,19 +47,24 @@ page.ChangeDestination = (function(){
 		
 		doChangeDestination : function(data){
 			console.log("API Call(bookingId:"+data.bookingId+") PUT /booking/bookings/{bookingId}/change-destination");
-//			$.ajax({
-//				url: "http://localhost:9999/tracker/cargos/"+data.trackingId+"/change-destination",
-//				method: "POST",
-//				data: JSON.stringify(data),
-//				dataType: "json",
-//				contentType: "application/json",
-//				error:function( jqXHR,  textStatus,  errorThrown){
-//					console.log(textStatus);
-//				},
-//				complete : function(text, xhr){
-//					location.href = "/admin/cargoDetail.html?trackingId="+data.trackingId;
-//				}
-//			});
+			
+			$.ajax({
+				async: false,
+				url: comm.server.url + "/booking/bookings/" + data.bookingId + "/change-destination",
+				method: "PUT",
+				data: JSON.stringify(data),
+				dataType: "text",
+				contentType: "application/json",
+				success: function(data, textStatus, jqXHR){
+					window.location.href = "";
+				},
+				error:function( jqXHR,  textStatus,  errorThrown){
+					comm.openModalForErrorMsg(textStatus, "Contact us");
+					console.log(textStatus);
+				},
+				complete : function(text, xhr){
+				}
+			});
 		}
 			
 	};
