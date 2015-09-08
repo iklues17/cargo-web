@@ -47,44 +47,25 @@ page.Track = (function() {
 		},
 		
 		getTrackingById: function(trackingId){
-			var tracking = {
-				"trackingId":"ABC123",
-				"misdirected":false,
-				"statusText":"In port Hong Kong",
-				"destination":"Hangzhou",
-				"eta":"?",
-				"nextExpectedActivity":"",
-				"handlingEventViewDto":
-					[{
-						"expected":true,
-						"description":"Received in Hong Kong, at 03/01/2014 12:00 오전 KST."
-					},
-					{
-						"expected":true,
-						"description":"Received in Hong Kong, at 10/15/2015 12:00 오전 KST."
-					}
-				]
-			};
-//			$.ajax({
-//				url: "http://localhost:9999/tracker/cargos/"+trackingId+"/tracks",
-//				method: "GET",
-//				dataType: "json",
-//				contentType: "application/json",
-//				success: function(data, textStatus, jqXHR){
-//					//console.log(data);
-//					tracks.cargo = data;
-//					tracks.events = data.handlingEventViewDto;
-//					trackingView.printTracking(tracks);
-//				},
-//				error: function(jqXHR, textStatus, errorThrown){
-//		        	console.log("error : " + textStatus + ", " + errorThrown);
-//		        }
-//			});
+			var tracking = {};
+			$.ajax({
+				async: false,
+				url: comm.server.url+"/tracker/cargos/"+trackingId+"/tracks",
+				method: "GET",
+				dataType: "json",
+				contentType: "application/json",
+				success: function(data, textStatus, jqXHR){
+					//console.log(data);
+					tracking = data;
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+		        	console.log("error : " + textStatus + ", " + errorThrown);
+		        }
+			});
 			this.showTracking(tracking);
 		},
 		
 		showTracking: function(tracking){
-
 			$(ENV.DIV_TRACKING_DETAIL).show();
 			
 		    template.RenderOne({
@@ -92,7 +73,7 @@ page.Track = (function() {
 		        tagName: "div",
 		        className: "tracking-detail",
 		        id: "divTrackingDetail",
-		        position: "append",
+		        position: "new",
 		        template: comm.getHtml("contents/tracking-detail.html"),
 		        data: tracking
 		    });

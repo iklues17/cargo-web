@@ -26,7 +26,7 @@ page.LogIn = (function(){
 				page.MenuTop();
 				// Main 화면으로 전환
 				var role = data.role
-				if(role == "MEMBER"){
+				if(role == "Member"){
 					window.location.href = "../portal/index.html"
 				}else{
 					window.location.href = "../admin/index.html"

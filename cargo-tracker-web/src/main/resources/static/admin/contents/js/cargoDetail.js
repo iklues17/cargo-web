@@ -6,7 +6,7 @@ adminPage.cargoDetailSection = (function() {
 	var getBookingDetail = function(bookingId){
 	
 		$.ajax({
-			url: "http://localhost:9999/booking/bookings/"+bookingId,
+			url: comm.server.url+"/booking/bookings/"+bookingId,
 			method: "GET",
 			dataType: "json",
 			contentType: "application/json",
@@ -38,13 +38,26 @@ adminPage.cargoDetailSection = (function() {
 				window.location.hash = window.location.hash+'/change-destination';
 			});
 			$(this.ID.BTN_ACCEPT).on("click", function(e){
-				that.accetpBooking();
+				that.accetpBooking(bookingDetail.bookingId);
 			});
 		},
 		
-		//TODO
-		accetpBooking: function(){
-			alert("Accept");
+		accetpBooking: function(bookingId){
+			$.ajax({
+				url: comm.server.url+"/booking/bookings/"+bookingId+"/accept",
+				method: "POST",
+				dataType: "text",
+				contentType: "application/json",
+				success: function(data, textStatus, jqXHR){
+					window.location.href = "";
+				},
+				error:function( jqXHR,  textStatus,  errorThrown){
+					comm.openModalForErrorMsg(textStatus, "Contact us");
+					console.log(textStatus);
+				},
+				complete : function(text, xhr){
+				}
+			});
 		},
 		
 		controlViewDiv: function(){
@@ -69,10 +82,10 @@ adminPage.cargoDetailSection = (function() {
 				+  '<td>Destination</td>'
 				+  '<td>'+bookingDetail.finalDestination+'</td>'
 				+ '</tr>'
-				+ '<tr>'
-				+  '<td></td>'
-	            +  '<td><a href="'+window.location.hash+'/change-destination">Change destination</a></td>'
-				+ '</tr>'
+//				+ '<tr>'
+//				+  '<td></td>'
+//	            +  '<td><a href="'+window.location.hash+'/change-destination">Change destination</a></td>'
+//				+ '</tr>'
 				+ '<tr>'
 				+ '<tr>'
 				+  '<td>Arrival deadline</td>'
@@ -82,7 +95,8 @@ adminPage.cargoDetailSection = (function() {
 				+  '<td colspan="2">'
 				+   '<div id="btnBottom" class="row entry-row">'
 				+    '<ul class="button-group radius">'
-				+     '<li><div id="btnChange" role="button" class="button small" style="margin-bottom:0px;" tabindex="0" data-mode="view">Change Destination</div></li>'
+// 				Not Accepted 상태에서 관리자의 change destination 불필요			
+// 				+     '<li><div id="btnChange" role="button" class="button small" style="margin-bottom:0px;" tabindex="0" data-mode="view">Change Destination</div></li>'
 				+     '<li><div id="btnAccept" role="button" class="button small" style="margin-bottom:0px;">Accept Booking</div></li>'
 				+    '</ul>'
 				+   '</div>'

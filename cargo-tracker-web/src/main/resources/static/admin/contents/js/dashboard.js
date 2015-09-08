@@ -92,6 +92,7 @@ adminPage.Dashboard = (function(){
 		
 		init: function(){
 			var _this = this;
+			_this.routedList = [];
 			$.each(trackingList, function(i){
 //				if(this.routed == true && this.claimed == false){
 				if(this.routed == true ){
@@ -142,6 +143,7 @@ adminPage.Dashboard = (function(){
 		
 		init: function(){
 			_this = this;
+			_this.claimedList = [];
 			$.each(trackingList, function(i){
 				if(this.claimed == true){
 					_this.claimedList.push(this);
@@ -185,6 +187,7 @@ adminPage.Dashboard = (function(){
 		
 		init: function(){
 			_this = this;
+			_this.notRoutedList = [];
 			$.each(trackingList, function(i){
 				if(this.routed == false){
 					_this.notRoutedList.push(this);

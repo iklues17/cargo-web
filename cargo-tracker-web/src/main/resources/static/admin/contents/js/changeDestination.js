@@ -118,6 +118,7 @@ adminPage.ChangeDestination = (function() {
 	};
 	
 	var trackingInit = function(id){
+		// TODO : Admin changeDestination 담당 서비스 정의. booking or traker
 		ENV = {
 			id: id,
 			sourceUrl: comm.server.url+"/tracker/cargos/"+id,
