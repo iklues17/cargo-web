@@ -2,7 +2,7 @@ comm.initPage = function () {
 	
 	var movePage = true;
 	if(!comm.isLogedin){
-		if(!(window.location.hash.startsWith("#log") || window.location.hash.startsWith("#sign"))){
+		if(!(window.location.hash.startsWith("#log") || window.location.hash.startsWith("#sign") || window.location.hash.startsWith("#track"))){
 			window.location.hash = "#log-in";
 			movePage = false;
 		}

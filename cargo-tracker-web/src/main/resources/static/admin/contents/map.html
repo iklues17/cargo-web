@@ -139,7 +139,8 @@
                                     'Last known location: ' + locationName[data[index].lastKnownLocation]);
 						},
 						onMarkerClick: function (event, index) {
-							window.location = "cargoDetail.html?trackingId=" + data[index].trackingId;
+							$('div').remove('.jvectormap-tip');
+							window.location.hash = "#detail/routed/" + data[index].trackingId;
 						}
 					});
 				});

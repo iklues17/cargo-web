@@ -140,16 +140,17 @@ adminPage.SelectItinerary = (function() {
 		doAssignRoute: function(index){
 			var _cargoDetail = cargoDetail;
 			var data = routeCandidates[index].legs;
+			
 			$.ajax({
-				url: "http://localhost:9999/tracker/cargos/"+_cargoDetail.trackingId+"/itinerary-assign-to",
+				url: comm.server.url+"/tracker/cargos/"+_cargoDetail.trackingId+"/itinerary-assign-to",
 				method: "POST",
-				dataType: "JSON",
+				dataType: "text",
 				data:JSON.stringify(data),
 				traditional: true,
 				contentType: "application/json",
 				success: function(data, textStatus, jqXHR){
 					console.log(data);
-					location.hash = location.hash.split('/select-itinerary')[0];
+					window.location.href = "#detail/routed/" + _cargoDetail.trackingId;
 				},
 				error:function( jqXHR,  textStatus,  errorThrown){
 					console.log(textStatus);

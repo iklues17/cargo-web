@@ -15,14 +15,16 @@ comm.initPage = function () {
     $(".top-bar-section > div > ul.left > li").removeClass('active');
     $(".top-bar-section > div > ul.right > li").removeClass('active');
     
-    if (location.hash.startsWith('#booking')) {
+//	admin booking 메뉴 제거    
+//    if (location.hash.startsWith('#booking')) {
+//    	$(".top-bar-section > div > ul.left > li").eq(1).addClass('active');
+//    } 
+    if (location.hash.startsWith('#track')) {
     	$(".top-bar-section > div > ul.left > li").eq(1).addClass('active');
-    } else if (location.hash.startsWith('#track')) {
-    	$(".top-bar-section > div > ul.left > li").eq(2).addClass('active');
     } else if (location.hash.startsWith('#about')) {
-    	$(".top-bar-section > div > ul.left > li").eq(3).addClass('active');
+    	$(".top-bar-section > div > ul.left > li").eq(2).addClass('active');
     } else if (location.hash.startsWith('#world-map')) {
-    	$(".top-bar-section > div > ul.left > li").eq(4).addClass('active');
+    	$(".top-bar-section > div > ul.left > li").eq(3).addClass('active');
     }
     // Top Right Bar - login state
     else if (location.hash.startsWith("#my-page")) {
