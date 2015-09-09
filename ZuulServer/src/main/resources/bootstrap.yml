@@ -1,8 +1,0 @@
-spring:
-  application:
-    name: ZuulServer
-  cloud:
-    config:
-      uri: http://70.50.8.125:8889
-  profiles:
-    active: development
